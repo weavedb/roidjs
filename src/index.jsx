@@ -47,21 +47,7 @@ const Injection = ({ children, _atoms, Component }) => {
     let key
     let _default = null
     let _atom = null
-    if (is(Object)(v) && has("id")(v)) {
-      key = v.key
-      if (has("get")(v)) {
-        const _get = v.get
-        v.get = id => ({ get }) =>
-          _get(id)({
-            get: v2 =>
-              !isNil(atoms[v2]) && is(String)(v2) ? get(atoms[v2]) : get(v2),
-          })
-        if (isNil(atoms[key])) atoms[key] = selectorFamily(v)
-      } else {
-        if (isNil(atoms[key])) atoms[key] = atomFamily(v)
-      }
-      _atom = atoms[key](v.id)
-    } else if (is(Object)(v) && has("get")(v)) {
+    if (is(Object)(v) && has("get")(v)) {
       key = v.key
       const _get = v.get
       v.get = ({ get }) =>
@@ -83,14 +69,8 @@ const Injection = ({ children, _atoms, Component }) => {
       _atom = atoms[key]
     }
     const [val, set] = useRecoilState(_atom)
-    if (is(Object)(v) && has("id")(v)) {
-      if (isNil($[key])) $[key] = {}
-      $[`${key}.${v.id}`] = val
-      setters[`${key}.${v.id}`] = set
-    } else {
-      $[key] = val
-      setters[key] = set
-    }
+    $[key] = val
+    setters[key] = set
   }
 
   const get = key =>

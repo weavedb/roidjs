@@ -133,31 +133,17 @@ const App = inject(
 
 A global state can be either [atom](https://recoiljs.org/docs/api-reference/core/atom), [selector](https://recoiljs.org/docs/api-reference/core/selector), [atomFamily](https://recoiljs.org/docs/api-reference/utils/atomFamily), or [selectorFamily](https://recoiljs.org/docs/api-reference/utils/selectorFamily).
 
-You can use the same syntax as Recoil, but add `id` field to specify the parameter for `atomFamily` and `selectorFamily`.
+Use the same syntax as Recoil, except that you can pass a key to `get` an atom or a selecter in the selector's get function.
 
 ```jsx
 const App = inject(
     [
         {key: "atom", default: 1},
-        {key: "selector", get: ({get}) => get("atom") + 1},
-        {key: "atomFamily", id: 1, default: 0},
-        {
-            key: "selectorFamily",
-            id: 1,
-            get: (id) => ({get}) => get("selector") + id
-        }
+        {key: "selector", get: ({get}) => get("atom") + 1}
     ],
     Component 
 )
 ```
-
-To access `atomFamily` and `selectorFamily`, concatenate `key` and `id` with `.`.
-
-```jsx
-$["atomFamily.1"]
-```
-
-For this reason, try not to use `.` in `key` as it won't be accessible.
 
 ### Reactive Functions
 
