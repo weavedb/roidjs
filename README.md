@@ -8,7 +8,7 @@ RoidJS is a lightweight utility library to inject global states into React compo
 yarn add roidjs
 ```
 
-## A Quick Guide
+## Quick Guide
 
 React components are sandboxed and have no access to shared global states, which makes it extra hard to build large-scale app. In most cases, setting up some heavy state management system such as [Redux](https://redux.js.org/) and [RxJS](https://rxjs.dev/) is necessary.
 
@@ -206,7 +206,7 @@ const add_and_multiply = ({set, get, val, fn}){
 
 ### Global `refs`
 
-Sometimes you need to share non-reactive objects between components and functions, but React doesn't have a built-in feature for that. The globally shared`refs` comes to resque.
+Sometimes you need to share non-reactive objects between components and functions, but React doesn't have a built-in feature for that. The globally shared `refs` comes to resque.
 
 ```jsx
 const getData = ({set, refs}) => set(refs.db.get("data"), "data")
@@ -221,3 +221,75 @@ const App = inject(
     }
 )
 ```
+
+## Super Simple Todo App Tutorial
+
+### Create Next App and Install RoidJS
+
+```bash
+npx create-next-app todos
+cd todos
+yarn add roidjs
+```
+
+### Wrap App with <Roid>
+
+`/pages/_app.js`
+
+```jsx
+import { Roid } from "roidjs"
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <Roid defaults={{ todos: [] }}>
+      <Component {...pageProps} />
+    </Roid>
+  )
+}
+
+export default MyApp
+```
+
+### Write App Logics
+
+`/pages/index.js`
+
+```jsx
+import { useState } from "react"
+import { Roid, inject } from "roidjs"
+
+const addTask = ({ get, set, val: { task } }) =>
+  set([...get("todos"), { id: Date.now(), task, done: false }], "todos")
+
+const complete = ({ get, set, val: { task } }) =>
+  set(
+    get("todos").map(v => (v.id !== task.id ? v : { ...v, done: !v.done })),
+    "todos"
+  )
+
+export default inject(["todos"], ({ $, fn, get, set }) => {
+  const [task, setTask] = useState("")
+  return (
+    <div style={{ padding: "20px" }}>
+      <div style={{ display: "flex" }}>
+        <input value={task} onChange={e => setTask(e.target.value)} />
+        <div
+          onClick={() => fn(addTask)({ task })}
+          style={{ marginLeft: "10px" }}
+        >
+          add task
+        </div>
+      </div>
+      {$.todos.map(v => (
+        <div
+          style={{ display: "flex", padding: "5px" }}
+          onClick={() => fn(complete)({ task: v })}
+        >
+          {v.done ? "o" : "x"} : {v.task}
+        </div>
+      ))}
+    </div>
+  )
+})
+```
+That's it!

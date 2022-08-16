@@ -12,7 +12,7 @@ import { useEffect } from "react"
 import { is, isNil, mergeLeft, append, has } from "ramda"
 
 let atoms = {}
-let global = {}
+let refs = {}
 let path = atom({
   key: "__provider_path",
   default: [],
@@ -102,10 +102,10 @@ const Injection = ({ children, _atoms, Component }) => {
   }
 
   const fn = func => (...args) => {
-    func({ val: args, get, set, global, fn })
+    func({ args, val: args[0] || {}, get, set, refs, fn })
   }
 
-  return <Component {...{ $, set, fn, get }} />
+  return <Component {...{ $, set, fn, get, refs }} />
 }
 
 export const inject = (atoms, Component) => () => (
