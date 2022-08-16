@@ -131,7 +131,7 @@ const App = inject(
 )
 ```
 
-A global state can be either [atom](https://recoiljs.org/docs/api-reference/core/atom), [selector](https://recoiljs.org/docs/api-reference/core/selector), [atomFamily](https://recoiljs.org/docs/api-reference/utils/atomFamily), or [selectorFamily](https://recoiljs.org/docs/api-reference/utils/selectorFamily).
+A global state can be either [atom](https://recoiljs.org/docs/api-reference/core/atom), [selector](https://recoiljs.org/docs/api-reference/core/selector).
 
 Use the same syntax as Recoil, except that you can pass a key to `get` an atom or a selecter in the selector's get function.
 
