@@ -1,0 +1,25 @@
+{
+  "name": "roidjs",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && node ./esbuild.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.15.3",
+    "esbuild-node-externals": "^1.4.1",
+    "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    "ramda": "^0.28.0",
+    "recoil": "^0.7.5"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ]
+}
