@@ -241,9 +241,9 @@ import { Roid, inject } from "roidjs"
 const addTask = ({ get, set, val: { task } }) =>
   set([...get("todos"), { id: Date.now(), task, done: false }], "todos")
 
-const complete = ({ get, set, val: { task } }) =>
+const complete = ({ get, set, val: { todo } }) =>
   set(
-    get("todos").map(v => (v.id !== task.id ? v : { ...v, done: !v.done })),
+    get("todos").map(v => (v.id !== todo.id ? v : { ...v, done: !v.done })),
     "todos"
   )
 
@@ -260,12 +260,12 @@ const App = inject(["todos"], ({ $, fn, get, set }) => {
           add task
         </div>
       </div>
-      {$.todos.map(v => (
+      {$.todos.map(todo => (
         <div
           style={{ display: "flex", padding: "5px" }}
-          onClick={() => fn(complete)({ task: v })}
+          onClick={() => fn(complete)({ todo })}
         >
-          {v.done ? "o" : "x"} : {v.task}
+          {todo.done ? "o" : "x"} : {todo.task}
         </div>
       ))}
     </div>
@@ -278,4 +278,5 @@ export default () => (
   </Roid>
 )
 ```
+
 That's it!
