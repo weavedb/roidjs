@@ -232,27 +232,7 @@ cd todos
 yarn add roidjs
 ```
 
-### Wrap App with Roid
-
-`/pages/_app.js`
-
-```jsx
-import { Roid } from "roidjs"
-
-function MyApp({ Component, pageProps }) {
-  return (
-    <Roid defaults={{ todos: [] }}>
-      <Component {...pageProps} />
-    </Roid>
-  )
-}
-
-export default MyApp
-```
-
-### Write App Logics
-
-`/pages/index.js`
+### `/pages/index.js`
 
 ```jsx
 import { useState } from "react"
@@ -267,7 +247,7 @@ const complete = ({ get, set, val: { task } }) =>
     "todos"
   )
 
-export default inject(["todos"], ({ $, fn, get, set }) => {
+const App = inject(["todos"], ({ $, fn, get, set }) => {
   const [task, setTask] = useState("")
   return (
     <div style={{ padding: "20px" }}>
@@ -291,5 +271,11 @@ export default inject(["todos"], ({ $, fn, get, set }) => {
     </div>
   )
 })
+
+export default () => (
+  <Roid defaults={{ todos: [] }}>
+    <App />
+  </Roid>
+)
 ```
 That's it!
