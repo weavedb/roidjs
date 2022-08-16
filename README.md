@@ -1,3 +1,5 @@
+![](./assets/cover.png)
+
 # RoidJS
 
 RoidJS is a lightweight utility library to inject global states into React components. This is an improved successor to the [NextDapp](https://nextdapp.org) framework, which has been battle-tested for years on [large-scale production apps](https://hide.ac) with thousands of users.
