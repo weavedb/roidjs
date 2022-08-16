@@ -232,7 +232,7 @@ cd todos
 yarn add roidjs
 ```
 
-### Wrap App with <Roid>
+### Wrap App with Roid
 
 `/pages/_app.js`
 
