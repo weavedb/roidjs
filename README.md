@@ -58,7 +58,7 @@ const App = inject(
  * wrap a component with <Roid> to create a scope 
  * optionally, initial values can be pre-assigned with `defaults`
  */
-default export () => <Roid defaults={state_1: 1}><App /></Roid>
+default export () => <Roid defaults={{state_1: 1}}><App /></Roid>
 ```
 
 ## Example with NextJS
@@ -76,7 +76,7 @@ import "../styles/globals.css"
 import { Roid } from "roidjs"
 function MyApp({ Component, pageProps }) {
   return (
-    <Roid defaults={state_1: 1, state_2: "two"}>
+    <Roid defaults={{state_1: 1, state_2: "two"}}>
       <Component {...pageProps} />
     </Roid>
   )
