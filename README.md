@@ -267,4 +267,121 @@ export default () => (
 )
 ```
 
-That's it!
+### A Better Architecture
+
+With RoidJS you can better design the app architecture by completely separating states and function from components.
+
+Let's create a directory tree like the following.
+
+```bash
+ ├── components
+ │   ├── AddTask.js
+ │   ├── Todo.js
+ │   └── Todos.js
+ ├── functions
+ │   └── todos.js
+ ├── pages
+ │   ├── _app.js 
+ │   └── index.js 
+ ├── states
+ │   └── todos.js 
+ │
+```
+
+#### states
+
+`/states/todos.js`
+
+```js
+export default {
+  todos: [],
+}
+```
+
+#### functions
+
+`/functions/todo.js`
+
+```js
+export const addTask = ({ get, set, val: { task } }) =>
+  set([...get("todos"), { id: Date.now(), task, done: false }], "todos")
+
+export const complete = ({ get, set, val: { todo } }) =>
+  set(
+    get("todos").map(v => (v.id !== todo.id ? v : { ...v, done: !v.done })),
+    "todos"
+  )
+```
+
+#### components
+
+`/components/AddTask.js`
+
+```jsx
+import { useState } from "react"
+import { inject } from "roidjs"
+import { addTask } from "/functions/todos"
+
+export default inject(["todos"], ({ $, fn, get, set }) => {
+  const [task, setTask] = useState("")
+  return (
+    <div style={{ display: "flex" }}>
+      <input value={task} onChange={e => setTask(e.target.value)} />
+      <div onClick={() => fn(addTask)({ task })} style={{ marginLeft: "10px" }}>
+        add task
+      </div>
+    </div>
+  )
+})
+```
+
+`/components/Todo.js`
+
+```jsx
+import { inject } from "roidjs"
+import { complete } from "/functions/todos"
+import Todo from "/components/Todo"
+
+export default inject(["todos"], ({ todo, fn }) => (
+  <div
+    style={{ display: "flex", padding: "5px" }}
+    onClick={() => fn(complete)({ todo })}
+  >
+    {todo.done ? "o" : "x"} : {todo.task}
+  </div>
+))
+```
+
+`/components/Todos.js`
+
+```jsx
+import { inject } from "roidjs"
+import AddTask from "/components/AddTask"
+import Todo from "/components/Todo"
+
+export default inject(["todos"], ({ $, fn, get, set }) => (
+  <div style={{ padding: "20px" }}>
+    <AddTask />
+    {$.todos.map(todo => (
+      <Todo todo={todo} />
+    ))}
+  </div>
+))
+```
+
+#### pages
+
+`/pages/index.js`
+
+```jsx
+import { Roid, inject } from "roidjs"
+import todos_defaults from "/states/todos"
+import Todos from "/components/Todos"
+export default () => (
+  <Roid defaults={todos_defaults}>
+    <Todos />
+  </Roid>
+)
+```
+
+That's it! Now you can easily extend the app with a clean modular organization.
