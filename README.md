@@ -12,7 +12,7 @@ yarn add roidjs
 
 ## Quick Guide
 
-React components are sandboxed and have no access to shared global states, which makes it extra hard to build large-scale app. In most cases, setting up some heavy state management system such as [Redux](https://redux.js.org/) and [RxJS](https://rxjs.dev/) is necessary.
+React components are sandboxed and have no access to shared global states, which makes it extra hard to build large-scale apps. In most cases, setting up some heavy state management system such as [Redux](https://redux.js.org/) and [RxJS](https://rxjs.dev/) is necessary.
 
 RoidJS removes such cumbersome setups and simply lets you inject global states into components.
 
@@ -104,7 +104,7 @@ export default () =>
 
 `inject([states], Component)`
 
-You can inject global sattes to a react component with an array of state names.
+You can inject global states to a react component with an array of state names.
 
 The component gets `$` and `set` in its `props`.
 
