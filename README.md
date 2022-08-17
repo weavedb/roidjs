@@ -241,12 +241,12 @@ const App = inject(["todos"], ({ $, fn, get, set }) => {
     <div style={{ padding: "20px" }}>
       <div style={{ display: "flex" }}>
         <input value={task} onChange={e => setTask(e.target.value)} />
-        <div
+        <button
           onClick={() => fn(addTask)({ task })}
           style={{ marginLeft: "10px" }}
         >
           add task
-        </div>
+        </button>
       </div>
       {$.todos.map(todo => (
         <div
@@ -327,9 +327,9 @@ export default inject(["todos"], ({ fn }) => {
   return (
     <div style={{ display: "flex" }}>
       <input value={task} onChange={e => setTask(e.target.value)} />
-      <div onClick={() => fn(addTask)({ task })} style={{ marginLeft: "10px" }}>
+      <button onClick={() => fn(addTask)({ task })} style={{ marginLeft: "10px" }}>
         add task
-      </div>
+      </button>
     </div>
   )
 })

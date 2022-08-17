@@ -34,7 +34,7 @@ export const Roid = ({ children, defaults, override = true }) => {
   )
 }
 
-const Injection = ({ children, _atoms, Component }) => {
+const Injection = ({ children, _atoms, Component, props }) => {
   let $ = {}
   let setters = {}
   let _ = {}
@@ -81,9 +81,9 @@ const Injection = ({ children, _atoms, Component }) => {
     func({ args, val: args[0] || {}, get, set, refs, fn })
   }
 
-  return <Component {...{ $, set, fn, get, refs }} />
+  return <Component {...{ $, set, fn, get, refs, ...props }} />
 }
 
-export const inject = (atoms, Component) => () => (
-  <Injection {...{ _atoms: atoms, Component }} />
+export const inject = (atoms, Component) => props => (
+  <Injection {...{ _atoms: atoms, Component, props }} />
 )
