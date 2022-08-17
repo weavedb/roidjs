@@ -374,7 +374,7 @@ export default inject(["todos"], ({ $ }) => (
 `/pages/index.js`
 
 ```jsx
-import { Roid, inject } from "roidjs"
+import { Roid } from "roidjs"
 import todos_defaults from "/states/todos"
 import Todos from "/components/Todos"
 
