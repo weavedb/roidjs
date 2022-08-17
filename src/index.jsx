@@ -1,15 +1,7 @@
-import * as React from "react"
-import {
-  RecoilRoot,
-  atom,
-  atomFamily,
-  selector,
-  selectorFamily,
-  useRecoilState,
-} from "recoil"
+import * as React from "react";
+import { RecoilRoot, atom, selector, useRecoilState } from "recoil";
 
-import { useEffect } from "react"
-import { is, isNil, mergeLeft, append, has } from "ramda"
+import { is, isNil, has } from "ramda";
 
 let atoms = {}
 let refs = {}
