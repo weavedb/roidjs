@@ -32,7 +32,7 @@ const add = ({set, get, val}) => {
 const Add = inject(
     ["state_1", "state_2"],
     ({$, set, fn}) => {
-        /* wrap function with `fn` to make it reactive with global states */
+        /* wrap function with `fn` to grant access to global states */
         return <div onClick={() => fn(add(3))}>add</div>
     }
 )
@@ -147,9 +147,9 @@ const App = inject(
 )
 ```
 
-### Reactive Functions
+### Global Functions
 
-Functions can be made reactive to global states by wrapping with `fn`.
+Functions can be granted access to global states by wrapping with `fn`.
 
 ```jsx
 const add = ({set, get, val}) => set(get("state_1") + num, "state_1")
@@ -180,7 +180,7 @@ const App = inject(
 )
 ```
 
-You can chain reactive functions by wraping another function with `fn` within a reactive function.
+You can chain global functions by wraping another function with `fn` within a global function.
 
 ```jsx
 const multiply = ({set, get, val})
@@ -194,7 +194,7 @@ const add_and_multiply = ({set, get, val, fn}){
 
 ### Global `refs`
 
-Sometimes you need to share non-reactive objects between components and functions, but React doesn't have a built-in feature for that. The globally shared `refs` comes to resque.
+Sometimes you need to share non-reactive objects among components and functions, but React doesn't have a built-in feature for that. The globally shared `refs` comes to resque.
 
 ```jsx
 const getData = ({set, refs}) => set(refs.db.get("data"), "data")
