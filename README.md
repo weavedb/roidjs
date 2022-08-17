@@ -269,7 +269,7 @@ export default () => (
 
 ### A Better Architecture
 
-With RoidJS you can better design the app architecture by completely separating states and function from components.
+With RoidJS you can better design the app architecture by completely separating states and functions from components.
 
 Let's create a directory tree like the following.
 
@@ -322,7 +322,7 @@ import { useState } from "react"
 import { inject } from "roidjs"
 import { addTask } from "/functions/todos"
 
-export default inject(["todos"], ({ $, fn, get, set }) => {
+export default inject(["todos"], ({ fn }) => {
   const [task, setTask] = useState("")
   return (
     <div style={{ display: "flex" }}>
@@ -359,7 +359,7 @@ import { inject } from "roidjs"
 import AddTask from "/components/AddTask"
 import Todo from "/components/Todo"
 
-export default inject(["todos"], ({ $, fn, get, set }) => (
+export default inject(["todos"], ({ $ }) => (
   <div style={{ padding: "20px" }}>
     <AddTask />
     {$.todos.map(todo => (
