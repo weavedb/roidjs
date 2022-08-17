@@ -13,10 +13,6 @@ import { is, isNil, mergeLeft, append, has } from "ramda"
 
 let atoms = {}
 let refs = {}
-let path = atom({
-  key: "__provider_path",
-  default: [],
-})
 
 export const Roid = ({ children, defaults, override = true }) => {
   const Path = ({ children }) => {
