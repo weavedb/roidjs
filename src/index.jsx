@@ -77,9 +77,8 @@ const Injection = ({ children, _atoms, Component, props }) => {
     setters[key](val)
   }
 
-  const fn = func => (...args) => {
+  const fn = func => (...args) =>
     func({ args, val: args[0] || {}, get, set, refs, fn })
-  }
 
   return <Component {...{ $, set, fn, get, refs, ...props }} />
 }
